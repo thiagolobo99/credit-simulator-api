@@ -17,20 +17,12 @@ export class LoanService {
     const age = this.calculateAge(new Date(birthDate));
     const interestRate = this.getInterestRateByAge(age);
 
-    console.log(age);
-    console.log(interestRate);
-
     const monthlyInterestRate = this.getMonthlyInterestRate(interestRate);
     const totalPayments = months;
-
-    console.log(monthlyInterestRate);
-    console.log(totalPayments);
 
     const monthlyPayment =
       (loanAmount * monthlyInterestRate) /
       (1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
-
-    console.log(monthlyPayment);
 
     const totalAmount = monthlyPayment * totalPayments;
     const totalInterest = totalAmount - loanAmount;
