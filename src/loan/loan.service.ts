@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { SimulateLoanDto } from './dto/simulate.loan.dto';
 
 export interface LoanSimulationResult {
@@ -14,17 +14,23 @@ export class LoanService {
   simulateLoan(simulateLoanDto: SimulateLoanDto): LoanSimulationResult {
     const { loanAmount, birthDate, months } = simulateLoanDto;
 
+    if (loanAmount <= 0) {
+      throw new BadRequestException(
+        'O valor solicitado deve ser maior que zero.',
+      );
+    }
+
     const age = this.calculateAge(new Date(birthDate));
     const interestRate = this.getInterestRateByAge(age);
 
     const monthlyInterestRate = this.getMonthlyInterestRate(interestRate);
-    const totalPayments = months;
+    const monthlyPayment = this.calculateMonthlyPayment(
+      loanAmount,
+      monthlyInterestRate,
+      months,
+    );
 
-    const monthlyPayment =
-      (loanAmount * monthlyInterestRate) /
-      (1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
-
-    const totalAmount = monthlyPayment * totalPayments;
+    const totalAmount = monthlyPayment * months;
     const totalInterest = totalAmount - loanAmount;
 
     return {
@@ -34,6 +40,17 @@ export class LoanService {
       totalInterest: this.formatCurrency(totalInterest),
       interestRate: `${interestRate.toFixed(2)}% ao ano`,
     };
+  }
+
+  private calculateMonthlyPayment(
+    loanAmount: number,
+    monthlyInterestRate: number,
+    totalPayments: number,
+  ): number {
+    return (
+      (loanAmount * monthlyInterestRate) /
+      (1 - Math.pow(1 + monthlyInterestRate, -totalPayments))
+    );
   }
 
   private formatCurrency(value: number): string {
