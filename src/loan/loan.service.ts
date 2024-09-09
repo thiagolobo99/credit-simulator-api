@@ -1,5 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { SimulateLoanDto } from './dto/simulate.loan.dto';
+import * as nodemailer from 'nodemailer';
 
 export interface LoanSimulationResult {
   loanAmount: string;
@@ -11,8 +12,50 @@ export interface LoanSimulationResult {
 
 @Injectable()
 export class LoanService {
-  simulateLoan(simulateLoanDto: SimulateLoanDto): LoanSimulationResult {
-    const { loanAmount, birthDate, months } = simulateLoanDto;
+  private transporter;
+
+  constructor() {
+    this.transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: '15thiagolobo@gmail.com',
+        pass: 'amix rggy jdni neeu',
+      },
+    });
+  }
+
+  async sendSimulationToEmail(to: string, simulationData: any) {
+    const mailOptions = {
+      from: '15thiagolobo@gmail.com',
+      to,
+      subject: 'Simulação de Crédito',
+      html: `<h1>Detalhes da Simulação de Crédito</h1><p>${JSON.stringify(simulationData)}</p>`,
+    };
+
+    try {
+      await this.transporter.sendMail(mailOptions);
+      console.log('E-mail enviado!');
+    } catch (error) {
+      console.error('Erro ao enviar e-mail:', error);
+    }
+  }
+
+  async simulateMultipleLoans(
+    simulateLoanDtos: SimulateLoanDto[],
+  ): Promise<LoanSimulationResult[]> {
+    // Processa todas as simulações de forma assíncrona
+    const simulations = simulateLoanDtos.map(async (dto) => {
+      return this.simulateLoan(dto);
+    });
+
+    // Aguarda todas as simulações terminarem
+    return Promise.all(simulations);
+  }
+
+  async simulateLoan(
+    simulateLoanDto: SimulateLoanDto,
+  ): Promise<LoanSimulationResult> {
+    const { loanAmount, birthDate, months, email } = simulateLoanDto;
 
     if (loanAmount <= 0) {
       throw new BadRequestException(
@@ -32,6 +75,14 @@ export class LoanService {
 
     const totalAmount = monthlyPayment * months;
     const totalInterest = totalAmount - loanAmount;
+
+    this.sendSimulationToEmail(email, {
+      loanAmount: this.formatCurrency(loanAmount),
+      monthlyPayment: this.formatCurrency(monthlyPayment),
+      totalAmount: this.formatCurrency(totalAmount),
+      totalInterest: this.formatCurrency(totalInterest),
+      interestRate: `${interestRate.toFixed(2)}% ao ano`,
+    });
 
     return {
       loanAmount: this.formatCurrency(loanAmount),

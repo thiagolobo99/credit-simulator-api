@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsDateString, Min } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsDateString,
+  Min,
+  IsEmail,
+} from 'class-validator';
 
 export class SimulateLoanDto {
   @IsNotEmpty()
@@ -14,4 +20,7 @@ export class SimulateLoanDto {
   @IsNumber()
   @Min(1)
   months: number;
+
+  @IsEmail()
+  email: string;
 }
