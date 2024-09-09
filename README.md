@@ -150,9 +150,8 @@ src/
 │   │   └── simulate.loan.dto.ts     # Definição do DTO para a simulação de empréstimo
 │   ├── loan.service.ts              # Serviço principal de simulação de empréstimos
 │   └── loan.controller.ts           # Controlador que lida com os endpoints de empréstimo
-|   └── mail.service.ts               # Serviço responsável pelo envio de e-mails
-| 
-│   
+├── mail/
+│   └── mail.service.ts              # Serviço responsável pelo envio de e-mails
 └── main.ts                          # Arquivo principal da aplicação
 \`\`\`
 
