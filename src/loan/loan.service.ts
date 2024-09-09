@@ -82,6 +82,7 @@ export class LoanService {
   }
 
   private getMonthlyInterestRate(annualRate: number): number {
+    // O annualRate deve ser dividido por 12 para ter a taxa mensal e dividido por 100 para termos este número em porcentagem (/100)
     return annualRate / 12 / 100;
   }
 
