@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://nestjs:nestjspassword@db:5432/nestjs  # URL de conexão com o banco
+    depends_on:
+      - db  # Define que o serviço "app" depende do banco de dados "db"
+    volumes:
+      - .:/usr/src/app  # Mapeia o diretório local para o contêiner (para desenvolvimento)
+
+  db:
+    image: postgres:14  # Usa a imagem oficial do PostgreSQL
+    ports:
+      - "5432:5432"  # Porta do PostgreSQL
+    environment:
+      POSTGRES_USER: nestjs  # Usuário do PostgreSQL
+      POSTGRES_PASSWORD: nestjspassword  # Senha do PostgreSQL
+      POSTGRES_DB: nestjs  # Banco de dados a ser criado
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Volume para persistir os dados do PostgreSQL
+
+volumes:
+  pgdata:  # Volume nomeado para persistência de dados do PostgreSQL

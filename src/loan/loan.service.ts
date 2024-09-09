@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { SimulateLoanDto } from './dto/simulate.loan.dto';
-import * as nodemailer from 'nodemailer';
+import { MailService } from './mail.service';
 
 export interface LoanSimulationResult {
   loanAmount: string;
@@ -12,34 +12,11 @@ export interface LoanSimulationResult {
 
 @Injectable()
 export class LoanService {
-  private transporter;
+  private mailService: MailService;
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    this.mailService = new MailService();
   }
-
-  async sendSimulationToEmail(to: string, simulationData: any) {
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to,
-      subject: 'Simulação de Crédito',
-      html: `<h1>Detalhes da Simulação de Crédito</h1><p>${simulationData}</p>`,
-    };
-
-    try {
-      await this.transporter.sendMail(mailOptions);
-      console.log('E-mail enviado!');
-    } catch (error) {
-      console.error('Erro ao enviar e-mail:', error);
-    }
-  }
-
   async simulateMultipleLoans(
     simulateLoanDtos: SimulateLoanDto[],
   ): Promise<LoanSimulationResult[]> {
@@ -75,7 +52,7 @@ export class LoanService {
     const totalAmount = monthlyPayment * months;
     const totalInterest = totalAmount - loanAmount;
 
-    this.sendSimulationToEmail(
+    this.mailService.sendSimulationToEmail(
       email,
       `Olá! O valor solicitado em sua simulação de crédito foi de ${this.formatCurrency(loanAmount)}, o pagamento mensal será de ${this.formatCurrency(monthlyPayment)}. O total pago em juros é ${this.formatCurrency(totalInterest)} e o juros anual é de ${interestRate.toFixed(2)}% ao ano.`,
     );
