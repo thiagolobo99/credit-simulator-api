@@ -1,11 +1,11 @@
 
-# Loan Simulation API
+# API de Simulação de Empréstimo
 
 Esta aplicação fornece uma API para simulação de empréstimos, calculando os pagamentos mensais, taxas de juros, e enviando os resultados por e-mail para os usuários.
 
 ## Tecnologias Utilizadas
 
-- **NestJS** - Framework para Node.js.
+- **NestJS** - Framework que utiliza TypeScript para criar Servidores.
 - **Jest** - Framework de testes.
 - **Nodemailer** - Biblioteca para envio de e-mails.
 - **TypeScript** - Superset do JavaScript que adiciona tipagem estática ao código.
@@ -27,61 +27,61 @@ Antes de instalar o projeto, certifique-se de ter as seguintes ferramentas insta
 
 1. Clone o repositório para sua máquina local:
 
-\`\`\`bash
+```bash
 git clone https://github.com/seu-usuario/seu-projeto.git
-\`\`\`
+```
 
 2. Navegue até a pasta do projeto:
 
-\`\`\`bash
+```bash
 cd seu-projeto
-\`\`\`
+```
 
 3. Instale as dependências:
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
 ## Variáveis de Ambiente
 
 O projeto usa o Nodemailer para enviar e-mails. Crie um arquivo \`.env\` na raiz do projeto e adicione suas credenciais de e-mail (como o exemplo abaixo):
 
-\`\`\`
+```
 EMAIL_USER=seu-email@gmail.com
 EMAIL_PASS=sua-senha
-\`\`\`
+```
 
 ## Como Rodar a Aplicação
 
 1. Para rodar a aplicação em modo de desenvolvimento, use o comando:
 
-\`\`\`bash
+```bash
 npm run start:dev
-\`\`\`
+```
 
 A aplicação estará rodando em \`http://localhost:3000\`.
 
 2. Para rodar a aplicação em modo de produção:
 
-\`\`\`bash
+```bash
 npm run build
 npm run start
-\`\`\`
+```
 
 ## Como Rodar os Testes
 
 Os testes são escritos com **Jest**. Para rodar todos os testes unitários, use o comando:
 
-\`\`\`bash
+```bash
 npm run test
-\`\`\`
+```
 
 Você também pode rodar os testes em modo de observação contínua:
 
-\`\`\`bash
+```bash
 npm run test:watch
-\`\`\`
+```
 
 ## Endpoints da API
 
@@ -89,22 +89,22 @@ Aqui está um resumo dos principais endpoints da API:
 
 ### Simular Empréstimo
 
-- **URL**: \`/loan/simulate\`
-- **Método**: \`POST\`
+- **URL**: `/loan/simulate`
+- **Método**: `POST`
 - **Body**:
 
-\`\`\`json
+```json
 {
   "loanAmount": 10000,
   "birthDate": "1990-01-01",
   "months": 12,
   "email": "usuario@exemplo.com"
 }
-\`\`\`
+```
 
 - **Resposta**:
 
-\`\`\`json
+```json
 {
   "loanAmount": "R$ 10.000,00",
   "monthlyPayment": "R$ 856,07",
@@ -112,15 +112,15 @@ Aqui está um resumo dos principais endpoints da API:
   "totalInterest": "R$ 272,87",
   "interestRate": "3.00% ao ano"
 }
-\`\`\`
+```
 
 ### Simular Múltiplos Empréstimos
 
-- **URL**: \`/loan/simulate-multiple\`
-- **Método**: \`POST\`
+- **URL**: `/loan/simulate-multiple`
+- **Método**: `POST`
 - **Body**:
 
-\`\`\`json
+```json
 [
   {
     "loanAmount": 5000,
@@ -135,7 +135,7 @@ Aqui está um resumo dos principais endpoints da API:
     "email": "usuario2@exemplo.com"
   }
 ]
-\`\`\`
+```
 
 - **Resposta**: Um array com os resultados de cada simulação.
 
@@ -143,7 +143,7 @@ Aqui está um resumo dos principais endpoints da API:
 
 Aqui está um resumo da estrutura de pastas do projeto:
 
-\`\`\`
+```
 src/
 ├── loan/
 │   ├── dto/
@@ -153,16 +153,16 @@ src/
 ├── mail/
 │   └── mail.service.ts              # Serviço responsável pelo envio de e-mails
 └── main.ts                          # Arquivo principal da aplicação
-\`\`\`
+```
 
 ## Como Contribuir
 
 Contribuições são bem-vindas! Siga os passos abaixo para contribuir com o projeto:
 
 1. Faça um fork do repositório.
-2. Crie uma nova branch para suas alterações: \`git checkout -b minha-feature\`.
-3. Faça suas alterações e faça commit: \`git commit -m 'Minha nova feature'\`.
-4. Envie suas alterações: \`git push origin minha-feature\`.
+2. Crie uma nova branch para suas alterações: `git checkout -b minha-feature`.
+3. Faça suas alterações e faça commit: `git commit -m 'Minha nova feature'`.
+4. Envie suas alterações: `git push origin minha-feature`.
 5. Crie um Pull Request.
 
 ---
