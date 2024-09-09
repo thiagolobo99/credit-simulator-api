@@ -1,85 +1,169 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Loan Simulation API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Esta aplicação fornece uma API para simulação de empréstimos, calculando os pagamentos mensais, taxas de juros, e enviando os resultados por e-mail para os usuários.
 
-## Description
+## Tecnologias Utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **NestJS** - Framework para Node.js.
+- **Jest** - Framework de testes.
+- **Nodemailer** - Biblioteca para envio de e-mails.
+- **TypeScript** - Superset do JavaScript que adiciona tipagem estática ao código.
+  
+## Funcionalidades
 
-## Project setup
+- Simulação de múltiplos empréstimos.
+- Envio de simulações por e-mail.
+- Cálculo de pagamentos mensais, total de juros e valor total a ser pago.
 
-```bash
-$ npm install
-```
+## Requisitos
 
-## Compile and run the project
+Antes de instalar o projeto, certifique-se de ter as seguintes ferramentas instaladas:
 
-```bash
-# development
-$ npm run start
+- [Node.js](https://nodejs.org/) (versão 14 ou superior)
+- [npm](https://www.npmjs.com/) (gerenciador de pacotes do Node.js)
 
-# watch mode
-$ npm run start:dev
+## Configuração
 
-# production mode
-$ npm run start:prod
-```
+1. Clone o repositório para sua máquina local:
 
-## Run tests
+\`\`\`bash
+git clone https://github.com/seu-usuario/seu-projeto.git
+\`\`\`
 
-```bash
-# unit tests
-$ npm run test
+2. Navegue até a pasta do projeto:
 
-# e2e tests
-$ npm run test:e2e
+\`\`\`bash
+cd seu-projeto
+\`\`\`
 
-# test coverage
-$ npm run test:cov
-```
+3. Instale as dependências:
 
-## Resources
+\`\`\`bash
+npm install
+\`\`\`
 
-Check out a few resources that may come in handy when working with NestJS:
+## Variáveis de Ambiente
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+O projeto usa o Nodemailer para enviar e-mails. Crie um arquivo \`.env\` na raiz do projeto e adicione suas credenciais de e-mail (como o exemplo abaixo):
 
-## Support
+\`\`\`
+EMAIL_USER=seu-email@gmail.com
+EMAIL_PASS=sua-senha
+\`\`\`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Como Rodar a Aplicação
 
-## Stay in touch
+1. Para rodar a aplicação em modo de desenvolvimento, use o comando:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+\`\`\`bash
+npm run start:dev
+\`\`\`
 
-## License
+A aplicação estará rodando em \`http://localhost:3000\`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+2. Para rodar a aplicação em modo de produção:
+
+\`\`\`bash
+npm run build
+npm run start
+\`\`\`
+
+## Como Rodar os Testes
+
+Os testes são escritos com **Jest**. Para rodar todos os testes unitários, use o comando:
+
+\`\`\`bash
+npm run test
+\`\`\`
+
+Você também pode rodar os testes em modo de observação contínua:
+
+\`\`\`bash
+npm run test:watch
+\`\`\`
+
+## Endpoints da API
+
+Aqui está um resumo dos principais endpoints da API:
+
+### Simular Empréstimo
+
+- **URL**: \`/loan/simulate\`
+- **Método**: \`POST\`
+- **Body**:
+
+\`\`\`json
+{
+  "loanAmount": 10000,
+  "birthDate": "1990-01-01",
+  "months": 12,
+  "email": "usuario@exemplo.com"
+}
+\`\`\`
+
+- **Resposta**:
+
+\`\`\`json
+{
+  "loanAmount": "R$ 10.000,00",
+  "monthlyPayment": "R$ 856,07",
+  "totalAmount": "R$ 10.272,87",
+  "totalInterest": "R$ 272,87",
+  "interestRate": "3.00% ao ano"
+}
+\`\`\`
+
+### Simular Múltiplos Empréstimos
+
+- **URL**: \`/loan/simulate-multiple\`
+- **Método**: \`POST\`
+- **Body**:
+
+\`\`\`json
+[
+  {
+    "loanAmount": 5000,
+    "birthDate": "1995-02-15",
+    "months": 24,
+    "email": "usuario1@exemplo.com"
+  },
+  {
+    "loanAmount": 15000,
+    "birthDate": "1980-08-25",
+    "months": 36,
+    "email": "usuario2@exemplo.com"
+  }
+]
+\`\`\`
+
+- **Resposta**: Um array com os resultados de cada simulação.
+
+## Estrutura do Projeto
+
+Aqui está um resumo da estrutura de pastas do projeto:
+
+\`\`\`
+src/
+├── loan/
+│   ├── dto/
+│   │   └── simulate.loan.dto.ts     # Definição do DTO para a simulação de empréstimo
+│   ├── loan.service.ts              # Serviço principal de simulação de empréstimos
+│   └── loan.controller.ts           # Controlador que lida com os endpoints de empréstimo
+|   └── mail.service.ts               # Serviço responsável pelo envio de e-mails
+| 
+│   
+└── main.ts                          # Arquivo principal da aplicação
+\`\`\`
+
+## Como Contribuir
+
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir com o projeto:
+
+1. Faça um fork do repositório.
+2. Crie uma nova branch para suas alterações: \`git checkout -b minha-feature\`.
+3. Faça suas alterações e faça commit: \`git commit -m 'Minha nova feature'\`.
+4. Envie suas alterações: \`git push origin minha-feature\`.
+5. Crie um Pull Request.
+
+---

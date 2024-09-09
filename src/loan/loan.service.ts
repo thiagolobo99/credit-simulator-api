@@ -12,11 +12,8 @@ export interface LoanSimulationResult {
 
 @Injectable()
 export class LoanService {
-  private mailService: MailService;
+  constructor(private readonly mailService: MailService) {}
 
-  constructor() {
-    this.mailService = new MailService();
-  }
   async simulateMultipleLoans(
     simulateLoanDtos: SimulateLoanDto[],
   ): Promise<LoanSimulationResult[]> {
