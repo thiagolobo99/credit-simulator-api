@@ -28,13 +28,13 @@ Antes de instalar o projeto, certifique-se de ter as seguintes ferramentas insta
 1. Clone o repositório para sua máquina local:
 
 ```bash
-git clone https://github.com/seu-usuario/seu-projeto.git
+git clone https://github.com/thiagolobo99/credit-simulator-api
 ```
 
 2. Navegue até a pasta do projeto:
 
 ```bash
-cd seu-projeto
+cd credit-simulator-api
 ```
 
 3. Instale as dependências:
@@ -45,7 +45,7 @@ npm install
 
 ## Variáveis de Ambiente
 
-O projeto usa o Nodemailer para enviar e-mails. Crie um arquivo \`.env\` na raiz do projeto e adicione suas credenciais de e-mail (como o exemplo abaixo):
+O projeto usa o Nodemailer para enviar e-mails. Crie um arquivo `.env` na raiz do projeto e adicione suas credenciais de e-mail (como o exemplo abaixo):
 
 ```
 EMAIL_USER=seu-email@gmail.com
@@ -150,19 +150,7 @@ src/
 │   │   └── simulate.loan.dto.ts     # Definição do DTO para a simulação de empréstimo
 │   ├── loan.service.ts              # Serviço principal de simulação de empréstimos
 │   └── loan.controller.ts           # Controlador que lida com os endpoints de empréstimo
-├── mail/
-│   └── mail.service.ts              # Serviço responsável pelo envio de e-mails
+|    └── mail.service.ts              # Serviço responsável pelo envio de e-mails
 └── main.ts                          # Arquivo principal da aplicação
 ```
-
-## Como Contribuir
-
-Contribuições são bem-vindas! Siga os passos abaixo para contribuir com o projeto:
-
-1. Faça um fork do repositório.
-2. Crie uma nova branch para suas alterações: `git checkout -b minha-feature`.
-3. Faça suas alterações e faça commit: `git commit -m 'Minha nova feature'`.
-4. Envie suas alterações: `git push origin minha-feature`.
-5. Crie um Pull Request.
-
 ---
