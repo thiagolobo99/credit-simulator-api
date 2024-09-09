@@ -18,18 +18,18 @@ export class LoanService {
     this.transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: '15thiagolobo@gmail.com',
-        pass: 'amix rggy jdni neeu',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
   }
 
   async sendSimulationToEmail(to: string, simulationData: any) {
     const mailOptions = {
-      from: '15thiagolobo@gmail.com',
+      from: process.env.EMAIL_USER,
       to,
       subject: 'Simulação de Crédito',
-      html: `<h1>Detalhes da Simulação de Crédito</h1><p>${JSON.stringify(simulationData)}</p>`,
+      html: `<h1>Detalhes da Simulação de Crédito</h1><p>${simulationData}</p>`,
     };
 
     try {
@@ -48,7 +48,6 @@ export class LoanService {
       return this.simulateLoan(dto);
     });
 
-    // Aguarda todas as simulações terminarem
     return Promise.all(simulations);
   }
 
@@ -76,13 +75,10 @@ export class LoanService {
     const totalAmount = monthlyPayment * months;
     const totalInterest = totalAmount - loanAmount;
 
-    this.sendSimulationToEmail(email, {
-      loanAmount: this.formatCurrency(loanAmount),
-      monthlyPayment: this.formatCurrency(monthlyPayment),
-      totalAmount: this.formatCurrency(totalAmount),
-      totalInterest: this.formatCurrency(totalInterest),
-      interestRate: `${interestRate.toFixed(2)}% ao ano`,
-    });
+    this.sendSimulationToEmail(
+      email,
+      `Olá! O valor solicitado em sua simulação de crédito foi de ${this.formatCurrency(loanAmount)}, o pagamento mensal será de ${this.formatCurrency(monthlyPayment)}. O total pago em juros é ${this.formatCurrency(totalInterest)} e o juros anual é de ${interestRate.toFixed(2)}% ao ano.`,
+    );
 
     return {
       loanAmount: this.formatCurrency(loanAmount),
